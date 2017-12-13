@@ -12,8 +12,7 @@ import org.judo.actions.impl.LogoutAction;
 import org.judo.actions.impl.ProfilAction;
 import org.judo.actions.impl.UpdateProfilAction;
 
-public abstract class ActionProvider implements Action {
-
+public class ActionProvider {
 
 	private static final Map<String,Action> map = new HashMap<>();
 	
@@ -33,8 +32,8 @@ public abstract class ActionProvider implements Action {
 			return action ;
 		}
 		else {
-			//throw new IllegalStateException("Action '" + actionName + "' not found");
-			return new ErrorAction("Action '" + actionName + "' not found");
+			throw new IllegalStateException("Action '" + actionName + "' not found");
+			//return new ErrorAction("Action '" + actionName + "' not found");
 		}
 	}
 }
