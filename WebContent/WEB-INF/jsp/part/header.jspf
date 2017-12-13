@@ -1,0 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<div style="height:80px;  ">
+<div style=" padding: 10px ">
+<img src="${pageContext.request.contextPath}/${initParam['club_logo']}" width="60" height="60"/>
+<span style="font-style: normal; font-size: 30px ; font-weight: bold" >&nbsp;&nbsp; ${initParam['club_name']} </span>
+</div>
+</div>

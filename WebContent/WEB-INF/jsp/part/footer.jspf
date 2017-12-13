@@ -1,0 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%><div style="height:40px; ">
+Footer ( footer.jsp )</br>
+Site conçu par "Licence Pro Team" ( IUT de Nantes )
+</div>

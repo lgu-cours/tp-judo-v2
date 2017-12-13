@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>TP judo (servlets et JSP)</display-name>
+  <welcome-file-list>
+    <welcome-file>action</welcome-file>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+  </welcome-file-list>
+  
+  <context-param>
+    <description></description>
+    <param-name>club_name</param-name>
+    <param-value>Judo Club des Bras Cassés</param-value>
+  </context-param>
+  <context-param>
+    <description></description>
+    <param-name>club_logo</param-name>
+    <param-value>/img/judo1.gif</param-value>
+  </context-param>
+  
+  <servlet>
+    <description>Mise en forme de la page a afficher (TEMPLATE/VUE)</description>
+    <display-name>Template de la vue </display-name>
+    <servlet-name>template</servlet-name>
+    <jsp-file>/WEB-INF/jsp/template.jsp</jsp-file>
+  </servlet>
+  
+<!-- 
+  <servlet>
+    <description>Point d'acces unique pour les actions (CONTROLEUR) </description>
+    <display-name>action</display-name>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.judo.servlet.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>template</param-name>
+      <param-value>template_judo</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>/action/*</url-pattern>
+  </servlet-mapping>
+ -->
+
+</web-app>

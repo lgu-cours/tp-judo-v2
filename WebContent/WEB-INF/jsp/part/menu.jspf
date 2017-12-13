@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="/WEB-INF/tld/c.tld"   prefix="c" %>    
+
+<div style="height:440px; ">
+MENU<br>
+( menu.jsp )
+<ul>
+<li><a href="<%=request.getContextPath()%>/action/accueil"> Accueil </a></li>
+<li><a href="${pageContext.request.contextPath}/action/competitions"> Competitions </a></li>
+<li><a href="${pageContext.request.contextPath}/action/coordonnees"> Coordonnees </a></li>
+<%-- login présent ( non null et non vide ) --%>
+<c:if test="${ ! empty login}" >
+<li><a href="${pageContext.request.contextPath}/action/profil"> Mon profil  </a></li>
+</ul>
+<form action="${pageContext.request.contextPath}/action/logout" method="post" >
+<button type="submit">Logout</button>
+</form>
+</c:if>
+<%-- Pas de login --%>
+<c:if test="${ empty login}" >
+</ul>
+<form action="${pageContext.request.contextPath}/action/login" method="post" >
+<table>
+<tr><td>Login </td><td><input name="login" style="width:80px" ></td></tr>
+<tr><td>Password </td><td><input name="password" style="width:80px" type="password"></td></tr>
+<tr><td><button type="submit">Login</button> </td></tr>
+</table>
+</form>
+</c:if>
+</div>

@@ -1,0 +1,6 @@
+<div style="height:20px;">
+Zone de message   ( message.jsp ) : 
+<c:if test="${ ! empty requestScope.msg}" >
+<span class="msg">&nbsp;${requestScope.msg}&nbsp;</span>
+</c:if>
+</div>

@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="/WEB-INF/tld/c.tld"   prefix="c" %>    
+
+<div style='height:20px'>
+<c:if test="${ ! empty login}" >
+ Utilisateur : <b>${login}</b>
+</c:if>
+<c:if test="${ empty login}" >
+ Non authentifié
+</c:if>
+<%--
+(${login})
+--%>
+</div>
