@@ -81,7 +81,32 @@ public class ActionServlet extends HttpServlet
 		process(request, response);
 	}
 	
-	private String getActionName(HttpServletRequest request) throws ServletException, IOException  {
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		String actionName = getActionName(request);		
+		trace("process : actionName = '" + actionName + "'" );
+		
+		//Action action = ActionProvider.getAction(actionName);
+		Action action = ActionProvider2.getAction(actionName);
+		trace("process : action found : " + action.getClass().getCanonicalName() );
+		
+		// Execute the action (returns the destination page)
+		String viewPage = executeAction(action, request, response);
+		trace("process : action executed, destination page : '" + viewPage + "'" );
+		
+		setAttributesForView(request, viewPage);
+		trace("process : attributes ready" );
+		
+		generateView(request, response);
+		trace("process : view generated" );
+	}
+	
+	/**
+	 * Parses the request URI in order to retrieve the 'action name' 
+	 * @param request
+	 * @return
+	 */
+	private String getActionName(HttpServletRequest request) {
 		//--- Récupération de la partie de l'URL qui détermine l'action
 		String path = request.getPathInfo();
 		
@@ -95,7 +120,25 @@ public class ActionServlet extends HttpServlet
 		return path.substring(1);
 	}
 	
-	private boolean userAuthenticated(HttpServletRequest request) throws ServletException, IOException  {
+	/**
+	 * Executes the given action and returns the destination page
+	 * @param action
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	private String executeAction(Action action, HttpServletRequest request, HttpServletResponse response) {
+		trace("executeAction : action " + action.getClass().getCanonicalName()  );
+		Action actionToExecute = action ;
+		if ( action.isAuthenticationRequired() && isUserAuthenticated(request) == false ) {
+			// Force the action to the specific "not authenticated" action
+			actionToExecute = new NotAuthenticatedAction();
+		}
+		trace("executeAction : action to execute " + actionToExecute.getClass().getCanonicalName()  );
+		return actionToExecute.execute(request, response);
+	}
+
+	private boolean isUserAuthenticated(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		if ( session != null ) {
 			return  session.getAttribute(Attrib.LOGIN) != null ;
@@ -103,45 +146,7 @@ public class ActionServlet extends HttpServlet
 		return false ;
 	}
 	
-	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-	{
-		String actionName = getActionName(request);		
-		trace("process : actionName = '" + actionName + "'" );
-		
-		//Action action = ActionProvider.getAction(actionName);
-		Action action = ActionProvider2.getAction(actionName);
-		
-		trace("process : action class : " + action.getClass().getSimpleName() );
-		
-		if ( action.isAuthenticationRequired() ) {
-			trace("process : authentication required "  );
-			if ( userAuthenticated(request) ) {
-				executeAction(action, request, response );
-			}
-			else {
-				executeAction(new NotAuthenticatedAction(), request, response );
-			}
-		}
-		else {
-			trace("process : no authentication required "  );
-			executeAction(action, request, response );
-		}
-	}
-	
-	private void executeAction(Action action, HttpServletRequest request, 
-			HttpServletResponse response ) throws ServletException, IOException {
-		
-		trace("process : execute action '" + action.getClass().getSimpleName() + "'");
-
-		String page = action.execute(request, response);
-
-		trace("process : view page = '" + page + "'" );
-		
-		//-------------------------------------------------------------------------
-		// 2) Les traitements sont faits, le "modèle" est à jour => on affiche la "vue"
-		//-------------------------------------------------------------------------
-
-		trace("process : action = '" + action + "' : génération de la vue..." );
+	private void setAttributesForView(HttpServletRequest request, String page) { 
 		
 		//--- Stockage de la page a afficher au niveau requête
 		//    Cet attribut est utilisé par le template pour faire un "include"
@@ -149,13 +154,9 @@ public class ActionServlet extends HttpServlet
 		trace("process : page = '" + page + "' " );
 		
 		//--- Stockage de l'URI racine de la servlet action ( ex "/webapp/action" )
-		String sActionURI = request.getContextPath() + request.getServletPath();
-		request.setAttribute(Attrib.ACTION_URI, sActionURI);
-		trace("process : actionURI = '" + sActionURI + "' " );
-		
-		//--- Génération de la "vue" ( page JSP )
-		generateView( request, response);
-		
+		String actionURI = request.getContextPath() + request.getServletPath();
+		request.setAttribute(Attrib.ACTION_URI, actionURI);
+		trace("process : actionURI = '" + actionURI + "' " );
 	}
 	
 	/**
