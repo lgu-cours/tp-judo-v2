@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.judo.actions.Action;
-import org.judo.actions.ActionProvider;
+import org.judo.actions.ActionProvider2;
 import org.judo.actions.impl.NotAuthenticatedAction;
 import org.judo.bean.Grade;
 import org.judo.services.Service;
@@ -108,7 +108,8 @@ public class ActionServlet extends HttpServlet
 		String actionName = getActionName(request);		
 		trace("process : actionName = '" + actionName + "'" );
 		
-		Action action = ActionProvider.getAction(actionName);
+		//Action action = ActionProvider.getAction(actionName);
+		Action action = ActionProvider2.getAction(actionName);
 		
 		trace("process : action class : " + action.getClass().getSimpleName() );
 		

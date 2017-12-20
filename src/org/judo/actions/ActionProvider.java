@@ -12,6 +12,11 @@ import org.judo.actions.impl.LogoutAction;
 import org.judo.actions.impl.ProfilAction;
 import org.judo.actions.impl.UpdateProfilAction;
 
+/**
+ * Action provider 
+ * with a single instance for each action
+ *
+ */
 public class ActionProvider {
 
 	private static final Map<String,Action> map = new HashMap<>();
