@@ -1,12 +1,20 @@
-<project name="TelosysStarterKit" default="export">
+<project name="tp" default="export">
+	
+	<!-- ============================================================================== -->
+	<!-- 1) Indiquer ICI votre NOM et votre PRENOM -->
+	<property name="nom"     value="Bar"    />
+	<property name="prenom"  value="Joe" />
+	
+	<!-- 2) Lancer la tache ANT : click-droit sur le "build.xml" + "Run as / Ant build" -->
 
+	<!-- 3) Recupérer le fichier ZIP dans le répertoire "dist" et l'envoyer par mail -->
+	<!-- ============================================================================== -->
+
+	
 	<property name="dist_dir"  value="./dist" />
 	
-	<property name="zip_file"        value="${dist_dir}/tp_judo.zip" />
-	<property name="zip_file_init"   value="${dist_dir}/tp_judo_init.zip" />
+	<property name="zip_file"  value="${dist_dir}/tp_judo_${nom}_${prenom}.zip" />
 
-	<!-- ============================================================================== -->
-	<!--                                                      -->
 	<!-- ============================================================================== -->
 	<target name="export" >
 		<echo message="Export ... file : ${zip_file} " />
@@ -14,22 +22,11 @@
 		<delete file="${zip_file}" />
 		<zip destfile="${zip_file}"  >	
 			<zipfileset dir="./src"         prefix="src"         />		
-			<zipfileset dir="./WebContent"  prefix="WebContent"  />	
-			<zipfileset file="./build.xml"    />	
+			<zipfileset dir="." >
+				<filename name="*.xml"/>  <!-- build*.xml, pom.xml -->
+			</zipfileset>			
 		</zip>
-	</target>
-
-	<target name="export_init" >
-		<echo message="Export ... file : ${zip_file_init} " />
-		<mkdir dir="${dist_dir}" />
-		<delete file="${zip_file_init}" />
-		<zip destfile="${zip_file_init}"  >	
-			<zipfileset file="./src/org/judo/bean/Competition.java"    />	
-			<zipfileset file="./src/org/judo/bean/Grade.java"    />	
-			<zipfileset file="./src/org/judo/services/Service.java"    />	
-			<zipfileset dir="./WebContent/css"  prefix="WebContent/css"     />	
-			<zipfileset dir="./WebContent/img"  prefix="WebContent/img"     />	
-		</zip>
+		<echo message="ZIP file in 'dist' folder (Press F5 to refresh workspace) " />
 	</target>
 
 </project>

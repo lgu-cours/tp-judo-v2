@@ -1,0 +1,35 @@
+<project name="TelosysStarterKit" default="export">
+
+	<property name="dist_dir"  value="./dist" />
+	
+	<property name="zip_file"        value="${dist_dir}/tp_judo.zip" />
+	<property name="zip_file_init"   value="${dist_dir}/tp_judo_init.zip" />
+
+	<!-- ============================================================================== -->
+	<!--                                                      -->
+	<!-- ============================================================================== -->
+	<target name="export" >
+		<echo message="Export ... file : ${zip_file} " />
+		<mkdir dir="${dist_dir}" />
+		<delete file="${zip_file}" />
+		<zip destfile="${zip_file}"  >	
+			<zipfileset dir="./src"         prefix="src"         />		
+			<zipfileset dir="./WebContent"  prefix="WebContent"  />	
+			<zipfileset file="./build.xml"    />	
+		</zip>
+	</target>
+
+	<target name="export_init" >
+		<echo message="Export ... file : ${zip_file_init} " />
+		<mkdir dir="${dist_dir}" />
+		<delete file="${zip_file_init}" />
+		<zip destfile="${zip_file_init}"  >	
+			<zipfileset file="./src/org/judo/bean/Competition.java"    />	
+			<zipfileset file="./src/org/judo/bean/Grade.java"    />	
+			<zipfileset file="./src/org/judo/services/Service.java"    />	
+			<zipfileset dir="./WebContent/css"  prefix="WebContent/css"     />	
+			<zipfileset dir="./WebContent/img"  prefix="WebContent/img"     />	
+		</zip>
+	</target>
+
+</project>
