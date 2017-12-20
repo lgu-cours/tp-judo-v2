@@ -17,7 +17,7 @@ import org.judo.util.PageName;
 public class UpdateProfilAction extends GenericAction {
 	
 	@Override
-	public boolean authenticationRequired() {
+	public boolean isAuthenticationRequired() {
 		return true ;
 	}
 

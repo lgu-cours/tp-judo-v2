@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class GenericAction implements Action {
 
 	@Override
-	public boolean authenticationRequired() {
+	public boolean isAuthenticationRequired() {
 		return false ;
 	}
 	

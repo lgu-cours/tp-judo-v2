@@ -112,7 +112,7 @@ public class ActionServlet extends HttpServlet
 		
 		trace("process : action class : " + action.getClass().getSimpleName() );
 		
-		if ( action.authenticationRequired() ) {
+		if ( action.isAuthenticationRequired() ) {
 			trace("process : authentication required "  );
 			if ( userAuthenticated(request) ) {
 				executeAction(action, request, response );

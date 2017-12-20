@@ -15,7 +15,7 @@ public interface Action {
 	
 	/**
 	 * Default processing method for an action <br>
-	 * Called when the action is called without method name <br>
+	 * Returns the destination page (the view) <br>
 	 * 
 	 * @param request
 	 * @param response
@@ -35,6 +35,6 @@ public interface Action {
 	 * Returns true if authentication is required for this action
 	 * @return
 	 */
-	boolean authenticationRequired() ;
+	boolean isAuthenticationRequired() ;
 
 }

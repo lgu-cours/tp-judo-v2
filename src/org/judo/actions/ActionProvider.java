@@ -32,8 +32,8 @@ public class ActionProvider {
 			return action ;
 		}
 		else {
-			throw new IllegalStateException("Action '" + actionName + "' not found");
-			//return new ErrorAction("Action '" + actionName + "' not found");
+			//throw new IllegalStateException("Action '" + actionName + "' not found");
+			return new ErrorAction("Action '" + actionName + "' not found");
 		}
 	}
 }
